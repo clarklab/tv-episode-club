@@ -25,11 +25,16 @@ $.each(episodes, function( key, value ) {
 
 $("ul li:nth-child("+count+")").addClass("border-green-500 border-4 -mx-4 current");
 
+function scroller() {
 
-setTimeout(function() { 
+  setTimeout(function() { 
         $([document.documentElement, document.body]).animate({
         scrollTop: 
  $(".current").offset().top - 100
     }, 200); 
   
     }, 1000);
+
+}
+
+scroller();

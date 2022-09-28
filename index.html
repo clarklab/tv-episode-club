@@ -2,7 +2,7 @@
 <html lang="en" >
 <head>
   <meta charset="UTF-8">
-  <title>CodePen - King of the Hill Club</title>
+  <title>King of the Hill Club - Watch one epside per week</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
@@ -13,7 +13,10 @@
 <!-- partial:index.partial.html -->
 <header class="fixed top-0 left-0 right-0 bg-white shadow-md py-1 px-6 flex justify-between items-center z-10 bg-[#F7F7F7]" >
   <h1 class="font-bold"><img src="logo.webp" width="180" alt=""></h1>
-  <a class="text-gray-500" href="#">What?</a>
+  <div>
+    <a href="#" onclick="scroller();">Current Episode</a>
+    <a class="bg-gray-200 rounded-full text-center inline-block w-6 h-6 ml-4" href="#what">?</a>
+  </div>
 </header>
 
 <ul class="md:w-1/2 mx-auto">
@@ -22,5 +25,10 @@
   <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js'></script>
 <script src='https://cdn.tailwindcss.com'></script><script  src="./script.js"></script>
 
+<div id="what" class="lg:w-1/2 mx-auto bg-gray-200 p-8 rounded-lg">
+  <strong>What? Where am I?</strong> Do you like TV? Do you know what a book club is? This is like a book club for TV. Each week, we watch one episode of an old TV and then talk about. Watch it any time. Behind? Catch up. Our goal is to watch the whole series, or at least until we all get tired.<br><br>
+  <a class="underline inline-block" href="https://github.com/clarklab/tv-episode-club">View on Github (make your own)</a><br>
+  <a class="underline inline-block" href="https://twitter.com/clarklab">Ask @clarklab what is going on</a>
+</div>
 </body>
 </html>
