@@ -18,7 +18,7 @@ var items = [];
 
 $.each(episodes, function( key, value ) {
   
-  var item = ( "<li class='rounded-xl shadow-xl mb-4 border border-gray-200 p-4' id='" + value.id + "'><img src='"+value.image.original+"' class='w-full rounded-lg'><div class='flex justify-between my-4 pb-4 border-b'><h1 class='text-2xl font-medium'>" + value.name + "</h1><p class='pill inline-block rounded-full bg-blue-100 px-2 py-1 font-medium text-blue-800'>S"+value.season+" E"+value.number+"</p></div>"+value.summary+"<p class='mt-4 text-gray-500'>Original Airdate: "+value.airdate+"</p></li>" );
+  var item = ( "<li class='rounded-xl shadow-xl mb-4 border border-gray-200 p-4' id='" + value.id + "'><img loading='lazy' src='"+value.image.original+"' class='w-full rounded-lg'><div class='flex justify-between my-4 pb-4 border-b'><h1 class='text-2xl font-medium'>" + value.name + "</h1><p class='pill inline-block rounded-full bg-blue-100 px-2 py-1 font-medium text-blue-800'>S"+value.season+" E"+value.number+"</p></div>"+value.summary+"<p class='mt-4 text-gray-500'>Original Airdate: "+value.airdate+"</p></li>" );
   
   $("ul").append(item);
   });
