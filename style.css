@@ -2,7 +2,9 @@
   font-family: 'Space Grotesk', sans-serif;
 }
 
-body{padding:4rem 1rem}
+body,html{scroll-behavior: smooth;}
+
+body{padding:4rem 0 0}
 body ul{padding:2rem}
 
 li{position:relative;}
@@ -18,4 +20,5 @@ li.current:after{
   font-weight:bold;
   padding:.35rem .75rem;
   border-bottom-right-radius: .5rem;
+  letter-spacing: .075rem;
 }

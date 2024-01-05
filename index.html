@@ -2,20 +2,45 @@
 <html lang="en" >
 <head>
   <meta charset="UTF-8">
-  <title>King of the Hill Club - Watch one epside per week</title>
+  <title>Rewatch Party!</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
-<meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" href="./style.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" href="./style.css">
+
+
+  <!-- HTML Meta Tags -->
+  <meta name="description" content="Let's watch The Simpsons! Join the Rewatch Party and keep up for every episode.">
+
+  <!-- Facebook Meta Tags -->
+  <meta property="og:url" content="https://rewatch.party">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Rewatch Party!">
+  <meta property="og:description" content="Let's watch The Simpsons! Join the Rewatch Party and keep up for every episode.">
+  <meta property="og:image" content="social.jpg">
+
+  <!-- Twitter Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta property="twitter:domain" content="rewatch.party">
+  <meta property="twitter:url" content="https://rewatch.party">
+  <meta name="twitter:title" content="Rewatch Party!">
+  <meta name="twitter:description" content="Let's watch The Simpsons! Join the Rewatch Party and keep up for every episode.">
+  <meta name="twitter:image" content="social.jpg">
+
+  <!-- Favicon for most browsers -->
+  <link rel="icon" type="image/png" href="icon.png">
+
+  <!-- Apple Touch Icon for iOS and other devices -->
+  <link rel="apple-touch-icon" href="touch.png">
 
 </head>
 <body>
 <!-- partial:index.partial.html -->
 <header class="fixed top-0 left-0 right-0 bg-white shadow-md py-1 px-6 flex justify-between items-center z-10 bg-[#F7F7F7]" >
-  <h1 class="font-bold"><img src="simpsons.svg" width="110" alt=""></h1>
+  <h1 class="font-bold"><img src="simpsons.svg" width="90" alt=""></h1>
   <div>
-    <a class="underline underline-offset-2 decoration-2 decoration-blue-600" href="#" onclick="scroller();">This Week</a>
+    <a class="underline underline-offset-2 decoration-2 decoration-blue-600 font-medium" href="#" onclick="scroller();">This Week</a>
     <a class="bg-blue-200 text-blue-900 font-medium rounded-full text-center inline-block w-6 h-6 ml-4" href="#what">?</a>
   </div>
 </header>
@@ -26,10 +51,13 @@
   <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js'></script>
 <script src='https://cdn.tailwindcss.com'></script><script  src="./script.js"></script>
 
-<div id="what" class="lg:w-1/2 mx-auto bg-gray-200 p-8 rounded-lg">
+<div class="bg-blue-200 w-full py-6">
+<div id="what" class="lg:w-1/2 mx-auto p-8 text-blue-900">
   <strong>What? Where am I?</strong> Do you like TV? Do you know what a book club is? This is like a book club for TV. Each week, we watch one episode of an old TV and then talk about. Watch it any time. Behind? Catch up. Our goal is to watch the whole series, or at least until we all get tired.<br><br>
-  <a class="underline inline-block" href="https://github.com/clarklab/tv-episode-club">View on Github (make your own)</a><br>
-  <a class="underline inline-block" href="https://twitter.com/clarklab">Ask @clarklab what is going on</a>
+  <strong>We are currently watching The Simpsons.</strong> I think it's available on Disney+. Or old DVDs. Find it or buy it or record it. Let's go!<br><br>
+  <a class="underline inline-block decoration-2 underline-offset-2 decoration-blue-600" href="https://github.com/clarklab/tv-episode-club">View on Github (make your own)</a><br>
+  <a class="underline inline-block decoration-2 underline-offset-2 decoration-blue-600" href="https://twitter.com/clarklab">Ask @clarklab what is going on</a>
+</div>
 </div>
 </body>
 </html>
