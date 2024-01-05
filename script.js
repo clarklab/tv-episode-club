@@ -5,7 +5,7 @@ function getWeeksDiff(startDate, endDate) {
 }
 
 
-var count = getWeeksDiff(new Date('2024-01-01'), new Date());
+var count = getWeeksDiff(new Date('2024-01-02'), new Date());
 
 
 
@@ -18,12 +18,12 @@ var items = [];
 
 $.each(episodes, function( key, value ) {
   
-  var item = ( "<li class='rounded-xl shadow-2xl mb-6 pb-6' id='" + value.id + "'><img loading='lazy' src='"+value.image.original+"' class='w-full rounded-lg rounded-br-none rounded-bl-none'><div class='flex gap-6 justify-between my-6 mb-4 px-6'><h1 class='text-3xl font-bold leading-none'>" + value.name + "</h1><p class='pill inline-block rounded bg-blue-200 px-2 py-1 mt-1 font-medium text-blue-900 whitespace-nowrap self-start'>S"+value.season+" E"+value.number+"</p></div><div class='px-6 text-gray-500'>"+value.summary+"<div class='flex gap-6 border-t pt-4 mt-4'><p class='text-gray-500'>📅 &nbsp; " + new Date(value.airdate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) + "</p><p class='text-gray-500'>⭐️ &nbsp; " + value.rating.average + "</p></div></div></li>" );
+  var item = ( "<li class='rounded-xl shadow-2xl mb-6 pb-6 flex flex-col' id='" + value.id + "'><img loading='lazy' src='"+value.image.original+"' class='w-full rounded-lg rounded-br-none rounded-bl-none'><div class='flex gap-6 justify-between my-6 mb-4 px-6'><h1 class='text-3xl font-bold leading-none'>" + value.name + "</h1><p class='pill inline-block rounded bg-blue-200 px-2 py-1 mt-1 font-medium text-blue-900 whitespace-nowrap self-start'>S"+value.season+" E"+value.number+"</p></div><div class='px-6 text-gray-500 flex flex-col flex-grow *:flex-grow'>"+value.summary+"<div class='flex !flex-grow-0 gap-6 border-t pt-4 mt-4'><p class='text-gray-500'>📅 &nbsp; " + new Date(value.airdate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) + "</p><p class='text-gray-500'>⭐️ &nbsp; " + value.rating.average + "</p></div></div></li>" );
   
   $("ul").append(item);
   });
 
-$("ul li:nth-child("+count+")").addClass("!border-blue-600 border-4 -mx-4 current");
+$("ul li:nth-child("+count+")").addClass("!border-blue-600 border-4 current");
 
 function scroller() {
 
