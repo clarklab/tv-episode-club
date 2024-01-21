@@ -1,0 +1,12 @@
+{
+  "name": "Rewatch Party",
+  "short_name": "Rewatch",
+  "icons": [
+    {
+      "src": "favicon.png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/",
+  "display": "standalone"
+}
