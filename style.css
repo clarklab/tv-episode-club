@@ -10,7 +10,7 @@ body ul{padding:2rem}
 li{position:relative;}
 
 li.current:after{
-  content:"THIS WEEK";
+  content:"THIS WEEK'S EPISODE";
   display:inline-block;
   position:absolute;
   top:0;
