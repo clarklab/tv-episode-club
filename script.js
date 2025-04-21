@@ -1,6 +1,7 @@
 var movies = [
   "The Treasure of Foggy Mountain",
   "North",
+  "The Gutter",
   "Romancing the Stone"
 ];
 
@@ -44,16 +45,17 @@ function displayMovie(movieData, index) {
     <li class='bg-white shadow-2xl mb-6 pb-6 flex flex-col' id='${movieData.imdbID}'>
       <img loading='lazy' src='${movieData.Poster}' class='w-full'>
       <div class='flex flex-col gap-2 my-6 mb-4 px-6'>
-        <h1 class='text-3xl font-bold leading-none'>${movieData.Title}</h1>
+        <h1 class='text-4xl font-bold leading-none'>${movieData.Title}</h1>
         <p class='pill inline-block rounded bg-[#4deeea] px-2 py-1 mt-1 expanded text-black whitespace-nowrap self-start'>
           ${movieData.Year}
         </p>
       </div>
       <div class='px-6 text-gray-500 flex flex-col flex-grow *:flex-grow'>
         <p class="line-clamp-3 text-[#746BD9]">${movieData.Plot}</p>
+        <p class="text-sm mt-2 text-gray-400">${movieData.Actors.split(', ').slice(0, 5).join(', ')}</p>
         <div class='flex !flex-grow-0 justify-between gap-6 border-t pt-4 mt-4'>
           <p class='text-gray-500' title='Watch Date'>
-          <svg class='inline w-5 h-5 relative -top-0.5'  width="100pt" height="100pt" version="1.1" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <svg class='inline w-5 h-5 relative -top-0.5 fill-[#746BD9]'  width="100pt" height="100pt" version="1.1" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
           <g>
             <path d="m33.332 16.668c-2.293 0-4.168 1.875-4.168 4.168v6.25h8.332v-6.25c0.003906-2.293-1.8711-4.168-4.1641-4.168z"/>
             <path d="m70.832 27.082v4.168c0 2.293-1.875 4.168-4.168 4.168-2.293 0-4.168-1.875-4.168-4.168v-4.168h-24.996v4.168c0 2.293-1.875 4.168-4.168 4.168s-4.168-1.875-4.168-4.168v-4.168h-12.496v56.25h66.668l-0.003907-56.25zm4.168 47.918h-50v-35.418h50z"/>
