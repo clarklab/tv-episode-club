@@ -2,31 +2,34 @@
 <html lang="en" >
 <head>
   <meta charset="UTF-8">
-  <title>Rewatch Party!</title>
+  <title>Rewatch Party!!</title>
   <link rel="manifest" href="/manifest.json" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Special+Gothic&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Special+Gothic+Condensed+One&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Special+Gothic+Expanded+One&display=swap" rel="stylesheet">
   <meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" href="./style.css">
 
 
   <!-- HTML Meta Tags -->
-  <meta name="description" content="Let's watch The Pentaverate! Join the Rewatch Party and keep up for every episode.">
+  <meta name="description" content="It's like a book club, but for movies.">
 
   <!-- Facebook Meta Tags -->
   <meta property="og:url" content="https://rewatch.party">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Rewatch Party!">
-  <meta property="og:description" content="Let's watch The Pentaverate! Join the Rewatch Party and keep up for every episode.">
+  <meta property="og:title" content="Rewatch Party!!">
+  <meta property="og:description" content="It's like a book club, but for movies.">
   <meta property="og:image" content="https://rewatch.party/social.jpg">
 
   <!-- Twitter Meta Tags -->
   <meta name="twitter:card" content="summary_large_image">
   <meta property="twitter:domain" content="rewatch.party">
   <meta property="twitter:url" content="https://rewatch.party">
-  <meta name="twitter:title" content="Rewatch Party!">
-  <meta name="twitter:description" content="Let's watch The Pentaverate! Join the Rewatch Party and keep up for every episode.">
+  <meta name="twitter:title" content="Rewatch Party!!">
+  <meta name="twitter:description" content="It's like a book club, but for movies.">
   <meta name="twitter:image" content="https://rewatch.party/social.jpg">
 
   <!-- Favicon for most browsers -->
@@ -36,13 +39,13 @@
   <link rel="apple-touch-icon" href="https://rewatch.party/touch.png">
 
 </head>
-<body>
+<body class="bg-[#4deeea]/10">
 <!-- partial:index.partial.html -->
-<header class="fixed top-0 left-0 right-0 bg-white shadow-md py-2 px-6 flex justify-between items-center z-10 bg-[#F7F7F7]" >
-  <h1 class="font-bold flex items-center gap-2"><img src="logo.svg" width="32" alt=""><span class="text-xl">Rewatch Party</span></h1>
+<header class="fixed top-0 left-0 right-0 bg-white shadow-md py-4 px-6 flex justify-between items-center z-10 bg-[#F7F7F7]" >
+  <h1 class="font-bold expanded flex items-center gap-2 md:gap-3"><img class="size-5 md:size-6" src="logo.svg" width="32" alt=""><span class="text-base md:text-lg expanded">Rewatch Party</span></h1>
   <div>
-    <a class="underline underline-offset-2 decoration-2 decoration-blue-600 font-medium" href="#" onclick="scroller();">This Week</a>
-    <a class="bg-blue-200 text-blue-900 font-medium rounded-full text-center inline-block w-6 h-6 ml-4" href="#what">?</a>
+    <a class="underline underline-offset-2 decoration-2 decoration-[#4deeea] font-medium" href="#" onclick="scroller();">This Week</a>
+    <a class="bg-[#4deeea] text-black font-bold rounded-full text-center inline-block w-6 h-6 ml-2" href="#what">?</a>
   </div>
 </header>
 
@@ -52,12 +55,12 @@
   <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js'></script>
 <script src='https://cdn.tailwindcss.com'></script><script  src="./script.js"></script>
 
-<div class="bg-blue-200 w-full py-6">
-<div id="what" class="lg:grid grid-cols-2 gap-12 mx-auto p-8 text-blue-900">
-  <p class="mb-6"><strong>What? Where am I?</strong> Do you like TV? Do you know what a book club is? This is like a book club for TV. Each week, we watch one episode of an old TV and then talk about. Watch it any time. Behind? Catch up. Our goal is to watch the whole series, or at least until we all get tired.</p>
-  <p><strong>We are currently watching The Pentaverate.</strong> It's a Netflix show. If you don't have Netflix, send Clark a message, he's got the hookup. Let's go!<br>
-  <a class="mt-2 underline inline-block decoration-2 underline-offset-2 decoration-blue-600" href="https://github.com/clarklab/tv-episode-club">View on Github (make your own)</a><br>
-  <a class="underline inline-block decoration-2 underline-offset-2 decoration-blue-600" href="https://twitter.com/clarklab">Ask @clarklab what is going on</a></p>
+<div class="bg-[#4deeea] w-full py-6">
+<div id="what" class="lg:grid grid-cols-2 gap-12 mx-auto p-8 text-black">
+  <p class="mb-6"><strong>What? Where am I?</strong> Do you like movies? Do you know what a book club is? This is like a book club for movies. Each week, we watch one new/old movie and then talk about it. Watch it any time. Behind? Catch up. Our goal is to watch all the movies, or at least until we all get tired.</p>
+  <p><strong>Check the list above to see our current movie, and the upcoming schedule.</strong> If you have a suggestion, send Clark a message, he's got the hookup. Let's go!<br>
+  <a class="mt-2 underline inline-block decoration-2 underline-offset-2 decoration-[#4deeea]" href="https://github.com/clarklab/tv-episode-club">View on Github (make your own)</a><br>
+  <a class="underline inline-block decoration-2 underline-offset-2 decoration-[#4deeea]" href="https://twitter.com/clarklab">Ask @clarklab what is going on</a></p>
 </div>
 </div>
 </body>

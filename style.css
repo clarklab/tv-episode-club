@@ -1,24 +1,52 @@
 *{
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Special Gothic', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Special Gothic Condensed One', sans-serif;
+}
+
+.expanded{
+  font-family: 'Special Gothic Expanded One', sans-serif;
 }
 
 body,html{scroll-behavior: smooth;}
 
-body{padding:4rem 0 0}
+body {
+  position: relative;
+  padding:4rem 0 0;
+}
+
+body::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url(bg.svg);
+  background-position: 50%;
+  background-repeat: repeat;
+  background-size: 6px;
+  opacity: 0.3;
+  z-index: -1;
+}
+
 body ul{padding:2rem}
 
 li{position:relative;}
 
 li.current:after{
-  content:"THIS WEEK'S EPISODE";
+  content:"THIS WEEK'S MOVIE";
   display:inline-block;
   position:absolute;
   top:0;
   left:0;
-  background:#2563eb;
+  background:#4deeea;
   color:#fff;
   font-weight:bold;
   padding:.35rem .75rem;
-  border-bottom-right-radius: .5rem;
+  font-size:0.8rem;
   letter-spacing: .075rem;
+  font-family: 'Special Gothic Expanded One', sans-serif;
 }
