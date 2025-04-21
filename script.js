@@ -15,7 +15,7 @@ function getWatchDate(movieIndex) {
 
 function fetchMovieData(movieTitle) {
   const apiKey = '1a13838f';
-  return fetch(`http://www.omdbapi.com/?t=${encodeURIComponent(movieTitle)}&apikey=${apiKey}`)
+  return fetch(`https://www.omdbapi.com/?t=${encodeURIComponent(movieTitle)}&apikey=${apiKey}`)
     .then(response => response.json())
     .then(data => {
       if (data.Response === "False") {
@@ -74,10 +74,10 @@ function displayMovie(movieData, index) {
 
 function scroller() {
   setTimeout(function() { 
-    $([document.documentElement, document.body]).animate({
+        $([document.documentElement, document.body]).animate({
       scrollTop: $(".current").offset().top - 100
     }, 200); 
-  }, 1000);
+    }, 1000);
 }
 
 function getCurrentMovieIndex() {
@@ -105,7 +105,7 @@ Promise.all(movies.map(movieTitle => fetchMovieData(movieTitle)))
         if (index === currentIndex) {
           console.log('Marking as current:', movieData.Title);
           $(`#${movieData.imdbID}`).addClass("!border-[#4deeea] border-4 current");
-          scroller();
+scroller();
         }
       }
     });
