@@ -1,21 +1,52 @@
 {
   "name": "Rewatch Party",
   "short_name": "Rewatch",
+  "description": "It's like a book club, but for movies.",
   "icons": [
     {
-      "src": "favicon.ico",
+      "src": "/favicon.ico",
       "sizes": "512x512",
       "type": "image/x-icon"
     },
     {
-      "src": "touch.png",
+      "src": "/touch.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "maskable"
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/touch.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/touch.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
     }
   ],
   "start_url": "/",
   "display": "standalone",
+  "orientation": "portrait",
   "theme_color": "#4DEEEA",
-  "background_color": "#4DEEEA"
+  "background_color": "#4DEEEA",
+  "categories": ["entertainment", "movies", "social"],
+  "screenshots": [
+    {
+      "src": "/social-unfurl.png",
+      "sizes": "1200x630",
+      "type": "image/png"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "This Week's Movie",
+      "short_name": "This Week",
+      "description": "View this week's movie",
+      "url": "/#current",
+      "icons": [{ "src": "/touch.png", "sizes": "96x96" }]
+    }
+  ]
 }
