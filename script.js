@@ -2,7 +2,8 @@ var movies = [
   "The Treasure of Foggy Mountain",
   "North",
   "The Gutter",
-  "Romancing the Stone"
+  "Romancing the Stone",
+  "The Air Up There"
 ];
 
 var currentMovieIndex = 0;
