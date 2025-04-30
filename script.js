@@ -105,14 +105,11 @@ function displayMovie(movieData, index) {
 Where to Stream</a>
         <div class='flex !flex-grow-0 justify-between gap-6 border-t pt-4 mt-4'>
           <p class='text-gray-500' title='Watch Date'>
-          <svg class='inline w-5 h-5 relative -top-0.5 fill-[#746BD9]'  width="100pt" height="100pt" version="1.1" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-          <g>
-            <path d="m33.332 16.668c-2.293 0-4.168 1.875-4.168 4.168v6.25h8.332v-6.25c0.003906-2.293-1.8711-4.168-4.1641-4.168z"/>
-            <path d="m70.832 27.082v4.168c0 2.293-1.875 4.168-4.168 4.168-2.293 0-4.168-1.875-4.168v-4.168h-24.996v4.168c0 2.293-1.875 4.168-4.168 4.168s-4.168-1.875-4.168-4.168v-4.168h-12.496v56.25h66.668l-0.003907-56.25zm4.168 47.918h-50v-35.418h50z"/>
-            <path d="m66.668 16.668c-2.293 0-4.168 1.875-4.168 4.168v6.25h8.332v-6.25c0-2.293-1.875-4.168-4.1641-4.168z"/>
-            <path d="m45.832 70.418-11.25-11.25 5.8359-5.8359 5.4141 5.418 13.75-13.75 5.8359 5.832z"/>
-          </g>
-          </svg>
+          <svg class='inline w-5 h-5 relative -top-0.5 fill-[#746BD9]' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor'>
+  <path fill-rule='evenodd' d='M6.75 2.25A.75.75 0 0 1 7.5 3v1.5h9V3A.75.75 0 0 1 18 3v1.5h.75a3 3 0 0 1 3 3v11.25a3 3 0 0 1-3 3H5.25a3 3 0 0 1-3-3V7.5a3 3 0 0 1 3-3H6V3a.75.75 0 0 1 .75-.75Zm13.5 9a1.5 1.5 0 0 0-1.5-1.5H5.25a1.5 1.5 0 0 0-1.5 1.5v7.5a1.5 1.5 0 0 0 1.5 1.5h13.5a1.5 1.5 0 0 0 1.5-1.5v-7.5Z' clip-rule='evenodd' />
+</svg>
+
+          
             &nbsp;<strong>${isPastMovie ? 'Watched:' : 'Watch:'}</strong> ${formattedDate}
           </p>
           <p class='text-gray-500' title='Rotten Tomatoes Rating'>
