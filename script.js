@@ -175,29 +175,10 @@ class NotificationService {
     };
 
     try {
-      if ('serviceWorker' in navigator) {
-        console.log('Service worker supported, getting registration...');
-        navigator.serviceWorker.getRegistration().then(registration => {
-          if (!registration) {
-            console.error('No service worker registration found');
-            return;
-          }
-          console.log('Service worker registration found:', registration);
-          registration.showNotification('Test Notification', options)
-            .then(() => {
-              console.log('Test notification sent successfully via service worker!');
-            })
-            .catch(error => {
-              console.error('Error showing notification:', error);
-            });
-        }).catch(error => {
-          console.error('Error getting service worker registration:', error);
-        });
-      } else {
-        console.log('Service worker not supported, using direct notification');
-        new Notification('Test Notification', options);
-        console.log('Test notification sent successfully!');
-      }
+      // Use direct Notification API instead of service worker
+      const notification = new Notification('Test Notification', options);
+      console.log('Test notification sent successfully!');
+      return notification;
     } catch (error) {
       console.error('Error sending test notification:', error);
     }
