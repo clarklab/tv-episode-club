@@ -173,13 +173,11 @@ class NotificationService {
     this.notificationPermission = Notification.permission;
     this.checkPermission();
     this.setupEventListeners();
-    $('html').addClass('overflow-hidden'); // Add overflow-hidden on page load
   }
 
   setupEventListeners() {
     $('.start-button').on('click', () => {
       $('.welcome').addClass('hidden');
-      $('html').removeClass('overflow-hidden');
       localStorage.setItem('hideWelcome', 'true');
       this.checkPermission();
     });
@@ -187,7 +185,6 @@ class NotificationService {
     $('.help').on('click', (e) => {
       e.preventDefault();
       $('.welcome').removeClass('hidden');
-      $('html').addClass('overflow-hidden');
       localStorage.removeItem('hideWelcome');
       if (this.notificationPrompt) {
         this.notificationPrompt.remove();
