@@ -1,0 +1,11 @@
+{
+  "name": "rewatch-party",
+  "version": "1.0.0",
+  "description": "Movie watching schedule app",
+  "scripts": {
+    "build:css": "tailwindcss -i ./style.css -o ./build.css --watch"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.1"
+  }
+} 
