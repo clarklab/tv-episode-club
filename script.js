@@ -122,7 +122,7 @@ function displayMovie(movieData, index) {
 function getCurrentMovieIndex() {
   const now = new Date();
   // Find the first movie whose date is in the future
-  const futureMovies = movieData.filter(movie => movie.date > now);
+  const futureMovies = movieData.filter(movie => new Date(movie.date) > now);
   if (futureMovies.length > 0) {
     return movieData.indexOf(futureMovies[0]);
   }
@@ -130,27 +130,174 @@ function getCurrentMovieIndex() {
   return movieData.length - 1;
 }
 
-// Update the main execution flow
+// Notification Service
+class NotificationService {
+  constructor() {
+    this.notificationPermission = null;
+    this.checkPermission();
+  }
+
+  async checkPermission() {
+    this.notificationPermission = Notification.permission;
+    // Only request permission if welcome is hidden and permission is default
+    if (this.notificationPermission === 'default' && $('.welcome').hasClass('hidden')) {
+      await this.requestPermission();
+    }
+  }
+
+  async requestPermission() {
+    try {
+      const permission = await Notification.requestPermission();
+      this.notificationPermission = permission;
+      if (permission === 'granted') {
+        this.scheduleNotifications();
+      }
+    } catch (error) {
+      console.error('Error requesting notification permission:', error);
+    }
+  }
+
+  // Add test function that can be called from console
+  testNotification() {
+    if (this.notificationPermission !== 'granted') {
+      console.log('Please enable notifications first');
+      return;
+    }
+
+    console.log('Sending test notification...');
+    const options = {
+      body: 'This is a test notification!',
+      icon: '/touch.png',
+      badge: '/touch.png',
+      vibrate: [200, 100, 200],
+      tag: 'test-notification',
+      renotify: true
+    };
+
+    try {
+      if ('serviceWorker' in navigator) {
+        console.log('Service worker supported, getting registration...');
+        navigator.serviceWorker.getRegistration().then(registration => {
+          if (!registration) {
+            console.error('No service worker registration found');
+            return;
+          }
+          console.log('Service worker registration found:', registration);
+          registration.showNotification('Test Notification', options)
+            .then(() => {
+              console.log('Test notification sent successfully via service worker!');
+            })
+            .catch(error => {
+              console.error('Error showing notification:', error);
+            });
+        }).catch(error => {
+          console.error('Error getting service worker registration:', error);
+        });
+      } else {
+        console.log('Service worker not supported, using direct notification');
+        new Notification('Test Notification', options);
+        console.log('Test notification sent successfully!');
+      }
+    } catch (error) {
+      console.error('Error sending test notification:', error);
+    }
+  }
+
+  scheduleNotifications() {
+    if (this.notificationPermission !== 'granted') return;
+
+    // Clear any existing notifications
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistration().then(registration => {
+        if (registration) {
+          registration.getNotifications().then(notifications => {
+            notifications.forEach(notification => notification.close());
+          });
+        }
+      });
+    }
+
+    // Schedule notifications for upcoming movies
+    movieData.forEach(movie => {
+      const watchDate = new Date(movie.date);
+      const now = new Date();
+      
+      // Only schedule for future movies
+      if (watchDate > now) {
+        // Schedule for 9 AM on the watch date
+        const notificationTime = new Date(watchDate);
+        notificationTime.setHours(9, 0, 0, 0);
+        
+        const timeUntilNotification = notificationTime - now;
+        if (timeUntilNotification > 0) {
+          console.log(`Scheduled notification for ${movie.title} at ${notificationTime.toLocaleString()}`);
+          setTimeout(() => {
+            this.sendNotification(movie.title);
+          }, timeUntilNotification);
+        }
+      }
+    });
+  }
+
+  sendNotification(title) {
+    if (this.notificationPermission !== 'granted') return;
+
+    const options = {
+      body: `It's time to watch ${title}!`,
+      icon: '/touch.png',
+      badge: '/touch.png',
+      vibrate: [200, 100, 200],
+      tag: `movie-${title}`,
+      renotify: true
+    };
+
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.ready.then(registration => {
+        registration.showNotification('Movie Time!', options);
+      });
+    } else {
+      new Notification('Movie Time!', options);
+    }
+  }
+}
+
+// Register Service Worker
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js')
+      .then(registration => {
+        console.log('ServiceWorker registration successful');
+      })
+      .catch(err => {
+        console.log('ServiceWorker registration failed: ', err);
+      });
+  });
+}
+
+// Initialize notification service
+const notificationService = new NotificationService();
+
+// Update initializeMovies to schedule notifications
 async function initializeMovies() {
   const sheetData = await fetchMoviesFromSheet();
   if (sheetData.length > 0) {
-    // Fetch and display all movies in order
-    Promise.all(sheetData.map(movie => fetchMovieData(movie.title)))
+    movieData = sheetData;
+    // Schedule notifications after movies are loaded
+    notificationService.scheduleNotifications();
+    
+    // Rest of the existing initialization code...
+    Promise.all(movieData.map(movie => fetchMovieData(movie.title)))
       .then(movieDataArray => {
         const currentIndex = getCurrentMovieIndex();
         console.log('Current index:', currentIndex);
         movieDataArray.forEach((movieData, index) => {
           if (movieData) {
-            // Add the date from our sheet data to the movie data
             movieData.date = sheetData[index].date;
             displayMovie(movieData, index);
-            if (index === currentIndex) {
-              console.log('Marking as current:', movieData.Title);
-              $(`#${movieData.imdbID}`).addClass("!border-[#4deeea] border-4 current");
-scroller();
-            }
           }
         });
+        // Mark the first upcoming movie as current
+        $("ul.upcoming li:first").addClass("!border-[#4DEEEA] border-4 current");
       });
   } else {
     console.error('No movies found in the spreadsheet');
@@ -165,14 +312,18 @@ if (localStorage.getItem('hideWelcome') === 'true') {
   $('.welcome').addClass('hidden');
 }
 
-// Add click handler for start button
+// Update start button handler to check notifications after hiding welcome
 $('.start-button').on('click', function() {
   $('.welcome').addClass('hidden');
   localStorage.setItem('hideWelcome', 'true');
+  // Check notification permission after welcome is hidden
+  notificationService.checkPermission();
 });
 
-// Add click handler for help link
+// Update help link handler to remove notification prompt
 $('.help').on('click', function() {
   $('.welcome').removeClass('hidden');
   localStorage.removeItem('hideWelcome');
+  // Remove notification prompt if it exists
+  $('.notification-prompt').remove();
 });

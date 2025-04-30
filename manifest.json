@@ -48,5 +48,7 @@
       "url": "/#current",
       "icons": [{ "src": "/touch.png", "sizes": "96x96" }]
     }
-  ]
+  ],
+  "permissions": ["notifications"],
+  "gcm_sender_id": "103953800507"
 }
