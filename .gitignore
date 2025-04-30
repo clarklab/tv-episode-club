@@ -6,7 +6,6 @@ yarn-error.log
 .pnpm-debug.log
 
 # Build output
-build.css
 dist/
 .cache/
 
