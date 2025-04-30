@@ -179,15 +179,16 @@ class NotificationService {
   setupEventListeners() {
     $('.start-button').on('click', () => {
       $('.welcome').addClass('hidden');
-      $('html').removeClass('overflow-hidden'); // Remove overflow-hidden when welcome is hidden
-      localStorage.setItem('welcomeHidden', 'true');
+      $('html').removeClass('overflow-hidden');
+      localStorage.setItem('hideWelcome', 'true');
       this.checkPermission();
     });
 
     $('.help').on('click', (e) => {
       e.preventDefault();
       $('.welcome').removeClass('hidden');
-      $('html').addClass('overflow-hidden'); // Add overflow-hidden when welcome is shown
+      $('html').addClass('overflow-hidden');
+      localStorage.removeItem('hideWelcome');
       if (this.notificationPrompt) {
         this.notificationPrompt.remove();
       }
