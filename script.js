@@ -1,13 +1,43 @@
-var movies = [
-  "The Treasure of Foggy Mountain",
-  "North",
-  "The Gutter",
-  "Romancing the Stone",
-  "The Air Up There"
-];
-
+var movies = [];
+var movieData = []; // Store both title and date
 var currentMovieIndex = 0;
 const startDate = new Date('2025-04-23');
+
+// Function to fetch movies from public Google Sheet
+async function fetchMoviesFromSheet() {
+  try {
+    const response = await fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vTgDa2SPx0xs2P1y83hgDVFJgmboovpcFJ4ajtwKW4IfetKurC5--agQ2LXIL3QF5ZdLmw-_JN1QKvW/pubhtml');
+    const text = await response.text();
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(text, 'text/html');
+    
+    // Find the table with movie data
+    const table = doc.querySelector('table');
+    if (!table) return [];
+    
+    const movies = [];
+    // Skip header row and iterate through table rows
+    const rows = Array.from(table.querySelectorAll('tr')).slice(2); // Skip first two rows (header and empty row)
+    rows.forEach(row => {
+      const cells = row.querySelectorAll('td');
+      if (cells.length >= 2) {
+        const title = cells[0].textContent.trim();
+        const dateStr = cells[1].textContent.trim();
+        if (title && dateStr) {
+          // Parse the date (MM/DD/YY format)
+          const [month, day, year] = dateStr.split('/');
+          const date = new Date(`20${year}`, month - 1, day);
+          movies.push({ title, date });
+        }
+      }
+    });
+    
+    return movies;
+  } catch (error) {
+    console.error('Error fetching from Google Sheets:', error);
+    return [];
+  }
+}
 
 function getWatchDate(movieIndex) {
   const watchDate = new Date(startDate);
@@ -21,13 +51,13 @@ function fetchMovieData(movieTitle) {
     .then(response => response.json())
     .then(data => {
       if (data.Response === "False") {
-        console.error('Error fetching movie:', data.Error);
+        console.error('Error fetching movie:', data.Error, 'for title:', movieTitle);
         return null;
       }
       return data;
     })
     .catch(error => {
-      console.error('Error fetching movie:', error);
+      console.error('Error fetching movie:', error, 'for title:', movieTitle);
       return null;
     });
 }
@@ -35,15 +65,20 @@ function fetchMovieData(movieTitle) {
 function displayMovie(movieData, index) {
   if (!movieData) return;
   
-  const watchDate = getWatchDate(index);
+  const watchDate = movieData.date;
   const formattedDate = watchDate.toLocaleDateString('en-US', { 
     weekday: 'short', 
     month: 'numeric', 
     day: 'numeric'
   });
 
+  // Calculate if movie is more than a week old
+  const oneWeekAgo = new Date();
+  oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+  const isPastMovie = watchDate < oneWeekAgo;
+
   const item = `
-    <li class='bg-white shadow-2xl mb-6 pb-6 flex flex-col' id='${movieData.imdbID}'>
+    <li class='bg-white shadow-2xl mb-6 pb-6 flex flex-col rounded-lg overflow-hidden' id='${movieData.imdbID}'>
       <img loading='lazy' src='${movieData.Poster}' class='w-full'>
       <div class='flex flex-col gap-2 my-6 mb-4 px-6'>
         <h1 class='text-4xl font-bold leading-none'>${movieData.Title}</h1>
@@ -64,7 +99,7 @@ function displayMovie(movieData, index) {
             <path d="m45.832 70.418-11.25-11.25 5.8359-5.8359 5.4141 5.418 13.75-13.75 5.8359 5.832z"/>
           </g>
           </svg>
-            &nbsp;<strong>Watch:</strong> ${formattedDate}
+            &nbsp;<strong>${isPastMovie ? 'Watched:' : 'Watch:'}</strong> ${formattedDate}
           </p>
           <p class='text-gray-500' title='IMDb Rating'>
             <svg class='inline w-5 h-5 relative -top-0.5' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='#746BD9'>
@@ -77,44 +112,67 @@ function displayMovie(movieData, index) {
     </li>
   `;
   
-  $("ul").append(item);
-}
-
-function scroller() {
-  setTimeout(function() { 
-        $([document.documentElement, document.body]).animate({
-      scrollTop: $(".current").offset().top - 100
-    }, 200); 
-    }, 1000);
+  if (isPastMovie) {
+    $("ul.past").append(item);
+  } else {
+    $("ul.upcoming").append(item);
+  }
 }
 
 function getCurrentMovieIndex() {
-  const now = new Date(); // Use real current date
-  const diffTime = now - startDate;
-  const diffWeeks = Math.floor(diffTime / (1000 * 60 * 60 * 24 * 7));
-  console.log('Debug:', {
-    now,
-    startDate,
-    diffTime,
-    diffWeeks,
-    moviesLength: movies.length
-  });
-  return Math.min(Math.max(0, diffWeeks), movies.length - 1);
+  const now = new Date();
+  // Find the first movie whose date is in the future
+  const futureMovies = movieData.filter(movie => movie.date > now);
+  if (futureMovies.length > 0) {
+    return movieData.indexOf(futureMovies[0]);
+  }
+  // If all movies are in the past, return the last one
+  return movieData.length - 1;
 }
 
-// Fetch and display all movies in order
-Promise.all(movies.map(movieTitle => fetchMovieData(movieTitle)))
-  .then(movieDataArray => {
-    const currentIndex = getCurrentMovieIndex();
-    console.log('Current index:', currentIndex);
-    movieDataArray.forEach((movieData, index) => {
-      if (movieData) {
-        displayMovie(movieData, index);
-        if (index === currentIndex) {
-          console.log('Marking as current:', movieData.Title);
-          $(`#${movieData.imdbID}`).addClass("!border-[#4deeea] border-4 current");
+// Update the main execution flow
+async function initializeMovies() {
+  const sheetData = await fetchMoviesFromSheet();
+  if (sheetData.length > 0) {
+    // Fetch and display all movies in order
+    Promise.all(sheetData.map(movie => fetchMovieData(movie.title)))
+      .then(movieDataArray => {
+        const currentIndex = getCurrentMovieIndex();
+        console.log('Current index:', currentIndex);
+        movieDataArray.forEach((movieData, index) => {
+          if (movieData) {
+            // Add the date from our sheet data to the movie data
+            movieData.date = sheetData[index].date;
+            displayMovie(movieData, index);
+            if (index === currentIndex) {
+              console.log('Marking as current:', movieData.Title);
+              $(`#${movieData.imdbID}`).addClass("!border-[#4deeea] border-4 current");
 scroller();
-        }
-      }
-    });
-  });
+            }
+          }
+        });
+      });
+  } else {
+    console.error('No movies found in the spreadsheet');
+  }
+}
+
+// Start the process
+initializeMovies();
+
+// Check localStorage on page load
+if (localStorage.getItem('hideWelcome') === 'true') {
+  $('.welcome').addClass('hidden');
+}
+
+// Add click handler for start button
+$('.start-button').on('click', function() {
+  $('.welcome').addClass('hidden');
+  localStorage.setItem('hideWelcome', 'true');
+});
+
+// Add click handler for help link
+$('.help').on('click', function() {
+  $('.welcome').removeClass('hidden');
+  localStorage.removeItem('hideWelcome');
+});
