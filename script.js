@@ -108,7 +108,7 @@ Where to Stream</a>
           <svg class='inline w-5 h-5 relative -top-0.5 fill-[#746BD9]'  width="100pt" height="100pt" version="1.1" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
           <g>
             <path d="m33.332 16.668c-2.293 0-4.168 1.875-4.168 4.168v6.25h8.332v-6.25c0.003906-2.293-1.8711-4.168-4.1641-4.168z"/>
-            <path d="m70.832 27.082v4.168c0 2.293-1.875 4.168-4.168 4.168-2.293 0-4.168-1.875-4.168-4.168v-4.168h-24.996v4.168c0 2.293-1.875 4.168-4.168 4.168s-4.168-1.875-4.168-4.168v-4.168h-12.496v56.25h66.668l-0.003907-56.25zm4.168 47.918h-50v-35.418h50z"/>
+            <path d="m70.832 27.082v4.168c0 2.293-1.875 4.168-4.168 4.168-2.293 0-4.168-1.875-4.168v-4.168h-24.996v4.168c0 2.293-1.875 4.168-4.168 4.168s-4.168-1.875-4.168-4.168v-4.168h-12.496v56.25h66.668l-0.003907-56.25zm4.168 47.918h-50v-35.418h50z"/>
             <path d="m66.668 16.668c-2.293 0-4.168 1.875-4.168 4.168v6.25h8.332v-6.25c0-2.293-1.875-4.168-4.1641-4.168z"/>
             <path d="m45.832 70.418-11.25-11.25 5.8359-5.8359 5.4141 5.418 13.75-13.75 5.8359 5.832z"/>
           </g>
@@ -173,8 +173,28 @@ function getCurrentMovieIndex() {
 // Notification Service
 class NotificationService {
   constructor() {
-    this.notificationPermission = null;
+    this.notificationPermission = Notification.permission;
     this.checkPermission();
+    this.setupEventListeners();
+    $('html').addClass('overflow-hidden'); // Add overflow-hidden on page load
+  }
+
+  setupEventListeners() {
+    $('.start-button').on('click', () => {
+      $('.welcome').addClass('hidden');
+      $('html').removeClass('overflow-hidden'); // Remove overflow-hidden when welcome is hidden
+      localStorage.setItem('welcomeHidden', 'true');
+      this.checkPermission();
+    });
+
+    $('.help').on('click', (e) => {
+      e.preventDefault();
+      $('.welcome').removeClass('hidden');
+      $('html').addClass('overflow-hidden'); // Add overflow-hidden when welcome is shown
+      if (this.notificationPrompt) {
+        this.notificationPrompt.remove();
+      }
+    });
   }
 
   async checkPermission() {
@@ -332,19 +352,3 @@ initializeMovies();
 if (localStorage.getItem('hideWelcome') === 'true') {
   $('.welcome').addClass('hidden');
 }
-
-// Update start button handler to check notifications after hiding welcome
-$('.start-button').on('click', function() {
-  $('.welcome').addClass('hidden');
-  localStorage.setItem('hideWelcome', 'true');
-  // Check notification permission after welcome is hidden
-  notificationService.checkPermission();
-});
-
-// Update help link handler to remove notification prompt
-$('.help').on('click', function() {
-  $('.welcome').removeClass('hidden');
-  localStorage.removeItem('hideWelcome');
-  // Remove notification prompt if it exists
-  $('.notification-prompt').remove();
-});
