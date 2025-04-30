@@ -96,7 +96,7 @@ function displayMovie(movieData, index) {
       </div>
       <div class='px-6 text-gray-500 flex flex-col flex-grow *:flex-grow'>
         <p class="line-clamp-3 text-[#746BD9]">${movieData.Plot}</p>
-        <p class="text-sm mt-2 text-gray-400">${movieData.Actors.split(', ').slice(0, 5).join(', ')}</p>
+        <p class="text-sm mt-2 text-gray-600 font-bold text-[1rem]">${movieData.Actors.split(', ').slice(0, 5).join(', ')}</p>
         <a href="https://www.justwatch.com/us/search?q=${encodedTitle}" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 mt-4 text-[#746BD9] hover:underline w-full bg-[#4deeea]/30 hover:bg-black justify-center text-lg rounded-lg p-4 expanded">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-5">
   <path d="M19.5 6h-15v9h15V6Z" />

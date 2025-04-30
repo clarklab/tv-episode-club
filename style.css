@@ -10,6 +10,10 @@ h1, h2, h3, h4, h5, h6 {
   font-family: 'Special Gothic Expanded One', sans-serif;
 }
 
+.font-bold{
+  font-family: 'Special Gothic Condensed One', sans-serif;
+}
+
 body,html{scroll-behavior: smooth;}
 
 body {
